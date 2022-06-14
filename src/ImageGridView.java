@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -12,12 +13,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ImageGridView implements Initializable {
 
-    @FXML GridPane gridPane;
+    @FXML public ImageView largeImg;
+    @FXML public GridPane gridPane;
 
     private static HttpURLConnection connection;
 
@@ -41,9 +42,9 @@ public class ImageGridView implements Initializable {
                 try {
                     VBox imageClass = fxmlLoader.load();
                     ImageItem imageItem = fxmlLoader.getController();
-                    imageItem.setData(list.getList().get(i), j);
+                    imageItem.setData(list.getList().get(i), j, this);
 
-                    if (column == 3) {
+                    if (column == 2) {
                         column = 0;
                         row++;
                     }
@@ -62,7 +63,7 @@ public class ImageGridView implements Initializable {
 
         BufferedReader reader;
         String line;
-        StringBuffer responseContent = new StringBuffer();
+        StringBuilder responseContent = new StringBuilder();
 
         try {
             URL url = new URL("http://gandom.co/devTest/1/home");
